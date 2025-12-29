@@ -1,0 +1,2 @@
+2025-12-29 03:42:16,872 - data_generator - INFO - Starting transaction generator (interval=1.0s, count=100)
+2025-12-29 03:43:56,594 - data_generator - INFO - Generated 100 transactions
