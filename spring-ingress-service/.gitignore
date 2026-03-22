@@ -1,0 +1,50 @@
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+.idea_modules/
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### VS Code ###
+.vscode/
+
+### Spring Boot ###
+spring-boot-*.log
+*.log
+logs/
+
+### OS ###
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+### Other ###
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
