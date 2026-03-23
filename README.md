@@ -11,7 +11,9 @@ Python script using Faker that produces realistic financial transaction JSON. Ru
 Currently configured to POST to http://localhost:8080/api/transactions and also write to transactions.jsonl.
 
 2. Spring Boot Ingestion API (transaction-api/)
-REST API that receives transactions and stores them. Endpoints:
+REST API that receives transactions and stores them.
+
+Endpoints:
 
 POST /api/transactions — ingest a transaction
 GET /api/transactions — list all
