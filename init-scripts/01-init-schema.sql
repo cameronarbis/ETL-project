@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS customers (
     user_code VARCHAR(50) UNIQUE,
     email VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- merchants table

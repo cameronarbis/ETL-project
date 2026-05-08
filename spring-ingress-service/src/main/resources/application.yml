@@ -1,0 +1,7 @@
+spring:
+  application:
+        name: ingress-service
+
+server:
+  port: 8081
+
