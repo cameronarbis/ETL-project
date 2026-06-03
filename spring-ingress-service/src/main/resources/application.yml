@@ -1,7 +1,17 @@
 spring:
   application:
-        name: ingress-service
-
+    name: ingress-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 3
+kafka:
+  topic:
+    transactions: transactions
+      
 server:
   port: 8081
 
