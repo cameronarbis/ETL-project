@@ -1,0 +1,67 @@
+# Application identification and port configuration
+spring:
+  application:
+    name: etl-pipeline
+
+  # Kafka bootstrap and consumer settings
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    # consumer group: identifies this consumer for offset tracking
+    # if multiple ETL instances exist, they share one group
+    consumer:
+      group-id: etl-pipeline-group
+      auto-offset-reset: earliest  # Start from beginning if no offset stored
+      max-poll-records: 100         # Fetch up to 100 records per poll
+      enable-auto-commit: false     # We manually commit after successful insert
+
+      # Deserialization: convert JSON bytes to Java objects
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+      # tell JsonDeserializer which Java class to deserialize into
+      properties:
+        spring.json.type.mapping: "transaction:com.dataplatform.etl.model.Transaction"
+
+  # PostgreSQL database connection settings
+  datasource:
+    url: jdbc:postgresql://localhost:5432/transactions_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  # Connection pool settings (HikariCP is default)
+  hikari:
+    maximum-pool-size: 10        # Max connections in pool
+    minimum-idle: 2              # Min idle connections
+    connection-timeout: 20000    # Wait 20s to get a connection
+    idle-timeout: 300000         # Close idle connections after 5 min
+    max-lifetime: 1200000        # Max connection lifetime: 20 min
+
+# port for health checks and monitoring endpoints
+# (we won't have HTTP endpoints, but Spring needs a port)
+server:
+  port: 8082
+
+# Application-specific configuration
+kafka:
+  # Topics we interact with
+  topic:
+    transactions: transactions          # Source topic (consume from)
+    transactions-dlq: transactions-dlq  # Dead Letter Queue (send failures to)
+
+  # Retry and error handling settings
+  retry:
+    max-attempts: 3                  # Try 3 times before giving up
+    initial-backoff-ms: 1000         # First retry after 1 second
+    backoff-multiplier: 2            # Exponential: 1s, 2s, 4s
+
+  # DLQ settings
+  dlq:
+    enabled: true                    # Enable DLQ for failed messages
+    topic: transactions-dlq
+
+# Database table and idempotency settings
+database:
+  table:
+    transactions: transactions        # Table name for inserts
