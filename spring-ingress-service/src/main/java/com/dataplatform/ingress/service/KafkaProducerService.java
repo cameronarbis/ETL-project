@@ -43,5 +43,4 @@ public class KafkaProducerService {
         });
         return future;
     }
-
 }
