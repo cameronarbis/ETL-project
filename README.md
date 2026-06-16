@@ -1,5 +1,4 @@
 --- Learning ETL ---		
-
 This project's current pipeline: 
 
 Python Generator  →  POST /api/transactions  →  Spring Boot API  →  PostgreSQL
@@ -13,13 +12,16 @@ Currently configured to POST to http://localhost:8080/api/transactions and also 
 2. Spring Boot Ingestion API (transaction-api/)
 REST API that receives transactions and stores them.
 
-Endpoints:
+Current endpoints:
 
+```
 POST /api/transactions — ingest a transaction
+
 GET /api/transactions — list all
 GET /api/transactions/{id} — get one
 GET /api/transactions/stats — count by status
 GET /actuator/health — health check
+```
 
 3. PostgreSQL (local, port 5432)
 The persistent store. Schema managed by Flyway (V1__create_transactions_table.sql). docker-compose.yml is also included for when Docker image pulls become available.
