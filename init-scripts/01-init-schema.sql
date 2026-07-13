@@ -79,7 +79,7 @@ CREATE INDEX idx_transactions_timestamp ON transactions (transaction_timestamp);
 CREATE INDEX idx_transactions_status ON transactions (status);
 CREATE INDEX idx_transactions_type ON transactions (transaction_type);
 
--- error log talble for failed transactions
+-- error log table for failed transactions
 CREATE TABLE IF NOT EXISTS etl_errors (
     error_id SERIAL PRIMARY KEY,
     source_data JSONB,
@@ -100,7 +100,7 @@ INSERT INTO categories (category_name) VALUES
     ('utilities'),
     ('healthcare'),
     ('clothing'),
-    ('other'),
+    ('other')
 ON CONFLICT (category_name) DO NOTHING;
 
 -- helper function to get or create customers
@@ -112,14 +112,12 @@ CREATE OR REPLACE FUNCTION get_or_create_customer(
 DECLARE
     v_customer_id INTEGER;
 BEGIN
-    -- try to find existing customers
-    SERECT customer_id INTO v_customer_id
+    SELECT customer_id INTO v_customer_id
     FROM customers
     WHERE (p_user_uuid IS NOT NULL AND user_uuid = p_user_uuid)
-       OR (p_user_uuid IS NOT NULL AND user_uuid = p_user_code);
-    
-    -- if not found, create new customer_id
-    IF v_customer_id IS NULL THEN 
+       OR (p_user_code IS NOT NULL AND user_code = p_user_code);
+
+    IF v_customer_id IS NULL THEN
        INSERT INTO customers (user_uuid, user_code, email)
        VALUES (p_user_uuid, p_user_code, p_email)
        RETURNING customer_id INTO v_customer_id;
@@ -134,7 +132,7 @@ CREATE OR REPLACE FUNCTION get_or_create_merchant(
     p_merchant_name VARCHAR
 ) RETURNS INTEGER AS $$
 DECLARE
-    v_merchant_id 
+    v_merchant_id INTEGER;
 BEGIN
     SELECT merchant_id INTO v_merchant_id
     FROM merchants
@@ -147,31 +145,31 @@ BEGIN
     END IF;
 
     RETURN v_merchant_id;
-END; 
+END;
 $$ LANGUAGE plpgsql;
 
 -- helper function to get or create locations
 CREATE OR REPLACE FUNCTION get_or_create_location(
     p_city VARCHAR,
     p_country_code VARCHAR,
-    p_ip_address VARCHAR,
-) RETURNS INTEGER AS $$ 
+    p_ip_address VARCHAR
+) RETURNS INTEGER AS $$
 DECLARE
     v_location_id INTEGER;
-BEGIN 
-  SELECT location_id INTO v_location_id
-  FROM locations
-  WHERE city = p_city
-    AND country_code = p_country_code
-    AND ip_address = p_ip_address;
+BEGIN
+    SELECT location_id INTO v_location_id
+    FROM locations
+    WHERE city = p_city
+      AND country_code = p_country_code
+      AND ip_address = p_ip_address;
 
-  IF v_location_id is NULL THEN
-      INSERT INTO locations (city, country_code, ip_address)
-      VALUES (p_city, p_country_code, p_ip_address)
-      RETURNING location_id INTO v_location_id;
-  END if;
+    IF v_location_id IS NULL THEN
+        INSERT INTO locations (city, country_code, ip_address)
+        VALUES (p_city, p_country_code, p_ip_address)
+        RETURNING location_id INTO v_location_id;
+    END IF;
 
-  RETURN v_location_id;
+    RETURN v_location_id;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -179,7 +177,3 @@ $$ LANGUAGE plpgsql;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO datauser;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO datauser;
 GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO datauser;
-
-);
-
-
