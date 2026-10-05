@@ -95,6 +95,9 @@ Helper PL/pgSQL functions (`get_or_create_customer`, `get_or_create_merchant`, `
 
 ### Known Issues / In-Progress
 
-- `KafkaConsumerConfig.java` has compile errors: `@EnableKakfa` (typo), `@Bean` methods placed outside the class body, and a factory method name typo (`kafkaListenerContainerFactor`). This file is a work in progress.
-- The ETL `application.yml` connects to PostgreSQL as `postgres/postgres`, but Docker Compose creates the database with `datauser/datapass123` — these need to be reconciled before the ETL pipeline can connect.
 - The `Transaction` model is duplicated between the two services; no shared library exists yet.
+
+The `@EnableKakfa` typo, the `kafkaListenerContainerFactor` factory-name typo, and the
+`postgres/postgres` vs `datauser/datapass123` credential mismatch that used to be listed
+here are all fixed as of 2026-09-06 — `KafkaConsumerConfig.java` and `application.yml`
+match the descriptions above.

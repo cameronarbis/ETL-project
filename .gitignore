@@ -15,3 +15,6 @@ target/
 
 # IDE
 .idea/
+
+# Personal working docs
+architecture.md
