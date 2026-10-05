@@ -4,7 +4,7 @@ Modify these settings to customize behavior
 """
 
 # HTTP Endpoint Configuration
-ENDPOINT = None  # Set to 'http://localhost:8080/api/transactions' when Spring Boot is ready
+ENDPOINT = http://localhost:8080/api/transactions
 
 # Generation Settings
 INTERVAL_SECONDS = 1.0  # Time between transactions
@@ -12,7 +12,7 @@ TRANSACTION_COUNT = None  # None for infinite, or set a number like 1000
 
 # Output Settings
 WRITE_TO_FILE = True
-SEND_VIA_HTTP = False  # Set to True when endpoint is ready
+SEND_VIA_HTTP = True
 OUTPUT_FILENAME = 'transactions.jsonl'
 
 # Data Variation Settings

@@ -29,7 +29,7 @@ public class KafkaProducerService {
                 kafkaTemplate.send(transactionsTopic, transaction.getTransactionId(),  transaction);
         future.whenComplete((result, ex) -> {
             if (ex == null) {
-                logger.info("Successfully published transaction {} to partition {} with offset {}",
+                logger.info("Successfully published transaction {} to partition {} with offset {} at {}",
                         transaction.getTransactionId(),
                         result.getRecordMetadata().partition(),
                         result.getRecordMetadata().offset(),
