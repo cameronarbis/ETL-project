@@ -49,20 +49,36 @@ Service endpoints after `start`:
 
 ## Building and Running the Spring Services
 
-Both Spring services use Java 21 and Maven. Run from each service's directory:
+Both Spring services use Java 21 and Maven. Use `make` from the project root:
 
 ```bash
-# Build
-mvn package -DskipTests
+# Build both services
+make build
 
-# Run
-mvn spring-boot:run
-# or
-java -jar target/*.jar
+# Build a specific service
+make build-ingress
+make build-etl
+
+# Run both services
+make run
+
+# Run a specific service
+make run-ingress
+make run-etl
 ```
 
 - `spring-ingress-service/` → runs on port **8081**
 - `spring-etl-pipeline/` → runs on port **8082**
+
+Alternatively, run Maven directly from each service's directory:
+
+```bash
+cd spring-ingress-service
+mvn package -DskipTests      # Build
+mvn spring-boot:run          # Run
+# or
+java -jar target/*.jar       # Run from JAR
+```
 
 ## Running the Data Generator
 
