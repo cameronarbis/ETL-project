@@ -1,5 +1,5 @@
 package com.dataplatform.ingress.service;
-import com.dataplatform.ingress.model.Transaction;
+import com.dataplatform.common.model.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

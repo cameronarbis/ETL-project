@@ -1,6 +1,6 @@
 package com.dataplatform.etl.service;
 
-import com.dataplatform.etl.model.Transaction;
+import com.dataplatform.common.model.Transaction;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

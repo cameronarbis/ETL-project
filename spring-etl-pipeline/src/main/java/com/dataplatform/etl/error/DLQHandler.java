@@ -1,6 +1,6 @@
 package com.dataplatform.etl.error;
 
-import com.dataplatform.etl.model.Transaction;
+import com.dataplatform.common.model.Transaction;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;

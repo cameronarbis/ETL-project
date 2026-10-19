@@ -1,7 +1,7 @@
 package com.dataplatform.etl.config;
 
+import com.dataplatform.common.model.Transaction;
 import com.dataplatform.etl.error.DLQHandler;
-import com.dataplatform.etl.model.Transaction;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
@@ -54,8 +54,8 @@ public class KafkaConsumerConfig {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.dataplatform.etl.model.Transaction");
-        props.put(JsonDeserializer.TRUSTED_PACKAGES, "com.dataplatform.etl.model");
+        props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.dataplatform.common.model.Transaction");
+        props.put(JsonDeserializer.TRUSTED_PACKAGES, "com.dataplatform.common.model");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
         props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "100");
