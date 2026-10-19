@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class DLQHandler {
 
     private static final String METRIC_DLQ_SENT = "etl.dlq.sent";
 
-    public DLQHandler(KafkaTemplate<String, Map<String, Object>> kafkaTemplate,
+    public DLQHandler(@Qualifier("dlqKafkaTemplate") KafkaTemplate<String, Map<String, Object>> kafkaTemplate,
                       ObjectMapper objectMapper,
                       MeterRegistry meterRegistry) {
         this.kafkaTemplate = kafkaTemplate;

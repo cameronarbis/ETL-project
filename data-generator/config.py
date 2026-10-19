@@ -4,7 +4,7 @@ Modify these settings to customize behavior
 """
 
 # HTTP Endpoint Configuration
-ENDPOINT = http://localhost:8080/api/transactions
+ENDPOINT = "http://localhost:8081/api/transactions"
 
 # Generation Settings
 INTERVAL_SECONDS = 1.0  # Time between transactions
