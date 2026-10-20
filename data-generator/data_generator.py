@@ -7,7 +7,7 @@ import json
 import logging
 import random
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from faker import Faker
 import requests
 from typing import Dict, List, Optional
@@ -60,7 +60,7 @@ class TransactionGenerator:
         transaction = {
             'transaction_id': fake.uuid4(),
             'user_id': fake.uuid4() if random.random() < 0.3 else f"USER_{random.randint(1000, 9999)}",
-            'timestamp': datetime.now().isoformat(),
+            'timestamp': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
             'type': transaction_type,
             'amount': amount,
             'currency': random.choice(['USD', 'EUR', 'GBP', 'CAD']) if random.random() < 0.1 else 'USD',

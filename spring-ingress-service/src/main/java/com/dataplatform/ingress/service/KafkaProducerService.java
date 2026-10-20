@@ -1,5 +1,5 @@
 package com.dataplatform.ingress.service;
-import com.dataplatform.ingress.model.Transaction;
+import com.dataplatform.common.model.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,7 +29,7 @@ public class KafkaProducerService {
                 kafkaTemplate.send(transactionsTopic, transaction.getTransactionId(),  transaction);
         future.whenComplete((result, ex) -> {
             if (ex == null) {
-                logger.info("Successfully published transaction {} to partition {} with offset {}",
+                logger.info("Successfully published transaction {} to partition {} with offset {} at {}",
                         transaction.getTransactionId(),
                         result.getRecordMetadata().partition(),
                         result.getRecordMetadata().offset(),
